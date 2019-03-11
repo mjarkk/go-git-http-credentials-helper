@@ -16,6 +16,10 @@ import (
 
 // encrypt text using the key
 func encrypt(text, key string) ([]byte, error) {
+	if key == "" {
+		return nil, errors.New("The key can't be empty")
+	}
+
 	gcm, err := createGCM(key)
 	if err != nil {
 		return nil, err

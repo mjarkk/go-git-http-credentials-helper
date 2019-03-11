@@ -39,12 +39,16 @@ func Run(cmd *exec.Cmd, ask func(string) string) ([]byte, error) {
 			ex = os.Args[0]
 		}
 
+		if len(cmd.Env) == 0 {
+			cmd.Env = os.Environ()
+		}
+
 		cmd.Env = append(
-			os.Environ(),
-			"LAZYGIT_CLIENT_COMMAND=GET_CREDENTIAL",
-			"LAZYGIT_HOST_PORT="+hostPort,
-			"LAZYGIT_LISTENER="+currentListener,
-			"GIT_ASKPASS="+ex, // tell git where lazygit is located so it can ask lazygit for credentials
+			cmd.Env,
+			"GIT_CREDENTIALS_HOST_PORT="+hostPort,
+			"GIT_CREDENTIALS_LISTENER="+currentListener,
+
+			"GIT_ASKPASS="+ex,
 			"LANG=en_US.UTF-8",
 			"LC_ALL=en_US.UTF-8",
 		)

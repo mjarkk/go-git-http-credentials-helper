@@ -1,0 +1,33 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "dvabztWVQX8f6oMLRyv4dLH+TGY=",
+			"origin": "github.com/stretchr/testify/vendor/github.com/davecgh/go-spew/spew",
+			"path": "github.com/davecgh/go-spew/spew",
+			"revision": "21cb1c2932a2d04c6792d5ad106243c6e36a3a7d",
+			"revisionTime": "2019-01-10T02:11:10Z"
+		},
+		{
+			"checksumSHA1": "aI7IxelpoLv3LPkL3BtCCX3S9Xg=",
+			"path": "github.com/mjarkk/go-ps",
+			"revision": "4da635de6d977abaa3b9b194553cbf6d08e8b823",
+			"revisionTime": "2019-02-23T15:27:57Z"
+		},
+		{
+			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
+			"origin": "github.com/stretchr/testify/vendor/github.com/pmezard/go-difflib/difflib",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "21cb1c2932a2d04c6792d5ad106243c6e36a3a7d",
+			"revisionTime": "2019-01-10T02:11:10Z"
+		},
+		{
+			"checksumSHA1": "gVqfXhvebqIrkZHqnpeMMZxZ3l4=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "21cb1c2932a2d04c6792d5ad106243c6e36a3a7d",
+			"revisionTime": "2019-01-10T02:11:10Z"
+		}
+	],
+	"rootPath": "github.com/mjarkk/go-git-http-credentials-helper"
+}
