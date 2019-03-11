@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-// getFreePort returns a free port that can be used by lazygit
+// getFreePort returns a free system port
 func getFreePort() string {
 	portCheckFrom := 5000
 	for {
