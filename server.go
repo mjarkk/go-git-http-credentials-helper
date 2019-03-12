@@ -87,7 +87,7 @@ func (l *Listener) Input(in inputQuestion, out *EncryptedMessage) error {
 	return nil
 }
 
-// runServer starts the server that waits for events from the lazygit client
+// runServer starts the server that waits for events from the client
 func runServer(serverStartedChan chan struct{}, end chan endRun, hostPort, currentListener string) {
 	serverRunning := false
 
