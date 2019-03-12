@@ -3,7 +3,49 @@ A Go library that adds a secure password/username ask function to a git push/pul
 
 ## The problem:
 When executing git fetch/push/pull it might ask for credentials but git craches when it detects it's ran in a tty.  
-This libary fixes that problem and makes it possible to fillin the username/password fields if there they are asked for.  
+This libary fixes that problem and makes it possible to fillin the username/password fields if there they are asked for.
+
+## How to use:
+```go
+// 1. Import the package:
+import (
+  gitcredentialhelper "github.com/mjarkk/go-git-http-credentials-helper"
+)
+
+// 2: Add the SetupClient to the top of the application
+// IMPORTANT: Make sure the application doesn't write to stdout before this function!
+func main() {
+  gitcredentialhelper.SetupClient()
+}
+
+// 3: run a git command that needs credentials
+func pushToTheRepo() {
+  // Create a exec.Cmd
+  cmd := exec.Command("git", "push")
+  
+  // The output is the same as cmd.CombinedOutput()
+  out, err := gitcredentialhelper.Run(cmd, func(question string) string {
+    // question is "username" or "password"
+    // and it expects to get back the username or password depending on the question
+    fmt.Println("git asked for:", question)
+		return "my username or password"
+  })
+  
+  // ....
+}
+```
+
+If git commands take forever you might need to set the Options argument:  
+```go
+// ....
+
+// "your-app-name" needs to be the appname as snown in the terminal title or in task manager this does NOT contain any / or .
+options := gitcredentialhelper.Options{AppName: "your-app-name"}
+gitcredentialhelper.Run(cmd, askFunction, options)
+
+// ....
+```
+
 
 ## How it works:
 **This is important to know** because this libary is not a 1 function solusion.  
@@ -32,3 +74,7 @@ The long answer is no, it's probebly possible to break this libary. Though i cou
 
 > Why so menny functions to inplement this?
 Most things are the result of security measures to check if it's really your program that is asking for someones password.
+
+## Known issues:
+- The credential manager on windows can break this if the popup is closed by the user. As user the best thing to do in that case is to remove the credential manager from git: `git config --system --unset credential.helper`
+- This does not work with the `go run ...` 
