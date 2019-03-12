@@ -60,16 +60,19 @@ gitcredentialhelper.Run(cmd, askFunction, options)
 
 ## Q and A:
 > Why all this if you can just use a pty?  
+
 Mostly because of Windows.  
 Windows does have a dll to create a PTY but there are no inplementations yet and i would need to included the ddl because a lot of users don't have the ddl.  
 Also PTY support on the Windows 10 subsystem *(linux on windows)* as non-root user is completely broken.  
 Beside all of that this is the offical way to do these kinds of things with git so..
 
 > Is this secure?  
+
 TL;DR Yes.  
 The long answer is no, it's probebly possible to break this libary. Though i could not success in breaking this and it's quite a bit of work because of the security measures and if someone successes it's still a 50/50 change to get any input from a user. It's easier for someone to add a keylogger in your terminal than to break this.
 
 > Why so menny functions to inplement this?  
+
 Most things are the result of security measures to check if it's really your program that is asking for someones password.
 
 ## Known issues:
