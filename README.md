@@ -62,7 +62,7 @@ gitcredentialhelper.Run(cmd, askFunction, options)
 > Why all this if you can just use a pty?  
 
 Mostly because of Windows.  
-Windows does have a dll to create a PTY but there are no inplementations yet and i would need to included the ddl because a lot of users don't have the ddl.  
+Windows does have a dll to create a PTY but there are no inplementations yet and i would need to included the dll because a lot of users don't have the dll.  
 Also PTY support on the Windows 10 subsystem *(linux on windows)* as non-root user is completely broken.  
 Beside all of that this is the offical way to do these kinds of things with git so..
 
