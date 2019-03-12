@@ -14,8 +14,8 @@ import (
 // Listener represents all server functions
 type Listener int
 
-// inputQuestion is the data that is send to Host from the Client
-type inputQuestion struct {
+// InputQuestion is the data that is send to Host from the Client
+type InputQuestion struct {
 	PublicKey string
 	Question  string
 	Listener  string
@@ -28,6 +28,7 @@ type listenerMetaType struct {
 		Password bool
 		Username bool
 	}
+	Options Options
 }
 
 // prompt the the meta data of of a request
@@ -40,7 +41,7 @@ var listenerMeta = map[string]listenerMetaType{} // a list of listeners
 var totalListener uint32                         // this gets used to set the key of listenerMeta
 
 // Input is the function that response on a credentials question from the client
-func (l *Listener) Input(in inputQuestion, out *EncryptedMessage) error {
+func (l *Listener) Input(in InputQuestion, out *EncryptedMessage) error {
 	suspiciousErr := errors.New("closing message due to suspicious behavior")
 
 	listener, ok := listenerMeta[in.Listener]
@@ -48,7 +49,7 @@ func (l *Listener) Input(in inputQuestion, out *EncryptedMessage) error {
 		return suspiciousErr
 	}
 
-	if !hasItselfAsSubProcess() {
+	if !hasItselfAsSubProcess(listener.Options) {
 		return suspiciousErr
 	}
 
@@ -137,7 +138,7 @@ func runServer(serverStartedChan chan struct{}, end chan endRun, hostPort, curre
 
 // hasItselfAsSubProcess returns true if
 // the current proccess has itself as sub process
-func hasItselfAsSubProcess() bool {
+func hasItselfAsSubProcess(options Options) bool {
 	if !ps.Supported() {
 		return true
 	}
@@ -150,7 +151,11 @@ func hasItselfAsSubProcess() bool {
 procListLoop:
 	for _, proc := range list {
 		procName := proc.Executable()
-		if !strings.Contains(strings.Replace(os.Args[0], ".exe", "", -1), strings.Replace(procName, ".exe", "", -1)) {
+		toMatch := os.Args[0]
+		if len(options.AppName) > 0 {
+			toMatch = options.AppName
+		}
+		if !strings.Contains(strings.Replace(toMatch, ".exe", "", -1), strings.Replace(procName, ".exe", "", -1)) {
 			continue
 		}
 		parrent := proc.PPid()
