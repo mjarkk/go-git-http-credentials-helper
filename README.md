@@ -46,6 +46,17 @@ gitcredentialhelper.Run(cmd, askFunction, options)
 // ....
 ```
 
+If you have a logger and want to log more errors:  
+```go
+func main() {
+  gitcredentialhelper.SetupClient(func(err error) {
+    // DO NOT PRINT THE ERROR!
+    // If you do that the error will be seen as password/username for git
+    log.Error(err)
+  })
+}
+```
+
 
 ## How it works:  
 1. Your program calles `git push` in a http repo
@@ -69,7 +80,7 @@ Beside all of that this is the offical way to do these kinds of things with git 
 > Is this secure?  
 
 TL;DR Yes.  
-The long answer is no, it's probebly possible to break this libary. Though i could not success in breaking this and it's quite a bit of work because of the security measures and if someone successes it's still a 50/50 change to get any input from a user. It's easier for someone to add a keylogger in your terminal than to break this.
+The long answer is no, it's probebly possible to break this libary. Though i could not succeed in breaking this and if someone did break it would be still a 50% change to get any input due to security measures. It's easier for someone to add a keylogger in your terminal than to break this.
 
 > Why so menny functions to inplement this?  
 

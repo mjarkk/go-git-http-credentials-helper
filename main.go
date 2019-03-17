@@ -94,7 +94,12 @@ func Run(cmd *exec.Cmd, ask func(string) string, potentialOptions ...Options) ([
 
 // SetupClient sets up the client
 // BEFORE THIS FUNCTION RUNS THERE CAN'T BE ANY PRINTING OTHERWHISE THIS LIBARY WON'T WORK!
-func SetupClient() {
+func SetupClient(logger ...func(error)) {
+	log := func(err error) {}
+	if len(logger) > 0 {
+		log = logger[0]
+	}
+
 	port := os.Getenv("GIT_CREDENTIALS_HOST_PORT")
 	listener := os.Getenv("GIT_CREDENTIALS_LISTENER")
 
@@ -104,12 +109,14 @@ func SetupClient() {
 
 	privateKey, publicKey, err := generateKeyPair()
 	if err != nil {
+		log(err)
 		os.Exit(0)
 		return
 	}
 
 	client, err := rpc.Dial("tcp", "127.0.0.1:"+port)
 	if err != nil {
+		log(err)
 		os.Exit(0)
 		return
 	}
@@ -122,12 +129,14 @@ func SetupClient() {
 	}, &data)
 	client.Close()
 	if err != nil {
+		log(err)
 		os.Exit(0)
 		return
 	}
 
 	msg, err := decryptMessage(privateKey, *data)
 	if err != nil {
+		log(err)
 		os.Exit(0)
 		return
 	}
