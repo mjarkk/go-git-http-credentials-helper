@@ -27,6 +27,18 @@
 			"path": "github.com/stretchr/testify/assert",
 			"revision": "21cb1c2932a2d04c6792d5ad106243c6e36a3a7d",
 			"revisionTime": "2019-01-10T02:11:10Z"
+		},
+		{
+			"checksumSHA1": "asZBHvcTKF5gVlI7AYnMlLXRYys=",
+			"path": "golang.org/x/crypto/sha3",
+			"revision": "8dd112bcdc25174059e45e07517d9fc663123347",
+			"revisionTime": "2019-02-28T09:13:53Z"
+		},
+		{
+			"checksumSHA1": "6SFZmy6PmyRtJ6/vdt2H2yr2n4Y=",
+			"path": "golang.org/x/sys/cpu",
+			"revision": "cc5685c2db1239775905f3911f0067c0fa74762f",
+			"revisionTime": "2019-02-24T20:24:49Z"
 		}
 	],
 	"rootPath": "github.com/mjarkk/go-git-http-credentials-helper"
