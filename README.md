@@ -13,7 +13,7 @@ import (
 )
 
 // 2: Add the SetupClient to the top of the application
-// IMPORTANT: Make sure the application doesn't write to stdout before this function!
+// IMPORTANT: Do not write to stdout before this function!!
 func main() {
   gitcredentialhelper.SetupClient()
 }
@@ -28,7 +28,7 @@ func pushToTheRepo() {
     // question is "username" or "password"
     // and it expects to get back the username or password depending on the question
     fmt.Println("git asked for:", question)
-		return "my username or password"
+    return "my username or password"
   })
   
   // ....
@@ -75,13 +75,14 @@ func main() {
 Mostly because of Windows.  
 Windows does have a dll to create a PTY but there are no inplementations yet and i would need to included the dll because a lot of users don't have the dll.  
 Also PTY support on the Windows 10 subsystem *(linux on windows)* as non-root user is completely broken.  
-Beside all of that this is the offical way to do these kinds of things with git so..
+Beside all of that this is the offical way to use external programs for git credentials.
 
 > Is this secure?  
 
 TL;DR Yes.  
-The long answer is no, it's probebly possible to break this libary. Though i could not succeed in breaking this and if someone did break it would be still a 50% change to get any input due to security measures. It's easier for someone to add a keylogger in your terminal than to break this.
+The long answer is no, it's probebly possible to break this libary. Though i could not succeed in breaking this and if someone did break it would be still a 50% change to get any input due to security measures.  
+It's easier for someone to add a keylogger in your terminal than to break this.
 
 ## Known issues:
 - The credential manager on windows can break this if the popup is closed by the user. As user the best thing to do in that case is to remove the credential manager from git: `git config --system --unset credential.helper`
-- This does not work with the `go run ...` 
+- This does not work with the `go run ...`
